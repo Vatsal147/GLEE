@@ -49,6 +49,7 @@ for (int i = 0, n = z.size(); i < n; i++)
         {
             itr->second++;
             c0++;
+            break;
         }
     }
     if (c0 == 0)
@@ -72,20 +73,16 @@ while (fqtable.size() > 0)
     for (itr = fqtable.begin(); itr != fqtable.end(); itr++)
     {
         a = itr->second;
-        if (a != 0)
+        if (c1 == 0)
         {
-            if (c1 == 0)
-            {
-
-                b = a;
-                prsnt = itr->first;
-                c1++;
-            }
-            if (a < b)
-            {
-                b = a;
-                prsnt = itr->first;
-            }
+            b = a;
+            prsnt = itr->first;
+            c1++;
+        }
+        if (a < b)
+        {
+            b = a;
+            prsnt = itr->first;
         }
     }
     //run a loop to assign characters their binary codes
@@ -113,6 +110,7 @@ while (fqtable.size() > 0)
                         counter++;
                     }
                     c2++;
+                    break;
                 }
                 //it goes here if its the one with next min fq
                 else
@@ -130,6 +128,7 @@ while (fqtable.size() > 0)
                         counter++;
                     }
                     c2++;
+                    break;
                 }
             }
         }
@@ -204,6 +203,7 @@ for(unsigned int i = 0; i < z.size(); i++)
                     byte = 0;
                 }
             }
+            break;
         }
     }
 }
