@@ -9,7 +9,7 @@ using namespace std;
 
 
 int main(){
-string z = "";
+string z;
 char y;    
 
 //open the input file to be encoded
