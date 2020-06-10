@@ -9,7 +9,8 @@ using namespace std;
 
 
 int main(){
-string y, z;
+string z;
+char y;
 
 //open the input file to be encoded
 ifstream input("Huffman code Test_file_2.txt");
@@ -19,19 +20,10 @@ if (input.fail())
     return 1;
 }
 //read data from the input file
-short c = 0;
 while(!input.eof())
 {
-    if (c == 0)
-    {
-        input>>z;
-        c++;
-    }
-    else
-    {
-        input>>y;
-        z = z + " " + y;
-    }
+    input.get(y);
+    z = z + y;
 }
 input.close();
 //declared map to store the frequency of characters in input file
