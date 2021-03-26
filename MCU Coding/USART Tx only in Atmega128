@@ -1,0 +1,40 @@
+#define F_CPU 8000000UL
+#define BAUD 9600  
+#define BAUDRATE 51   //((F_CPU)/(16UL * BAUD) - 1)
+
+#include <avr/io.h>
+#include <util/delay.h>
+
+void USART_initial(void){
+	//setting baud rates
+    UBRR0H = (BAUDRATE >> 8);  
+	UBRR0L = BAUDRATE;    
+    
+	//enabling USART receiver and transmitter
+	UCSR0B |= (1 << TXEN0);  
+	
+	// setting frame format
+	UCSR0C |= (0 << USBS0)|(1 << UCSZ00)|(1 << UCSZ01);		//default is 8 data bits, no parity bit, 1 stop bit
+}   
+
+void USART_trans(unsigned char data){
+	
+	//Check if the transmit buffer is empty or not 
+	while(!(UCSR0A & (1 << UDRE0)));  
+	
+	UDR0 = data; // UDR represents transmit buffer in which now we will send data
+}
+
+int main(void)
+{
+	// initialize USART
+	USART_initial();
+	unsigned char data = 'b';   // transmit data
+	
+	while (1)
+	{
+	USART_trans(data);
+	_delay_ms(1000);
+	}
+}
+
