@@ -18,7 +18,7 @@ void USART_initial(void){
 	UBRR0L = BAUDRATE;    // writing to higher byte (pura  byte shift kiya to make upper wala empty)
     
 	//enabling USART receiver and transmitter
-	UCSR0B |= (1 << TXEN0);  /* isase 1 aa jayega TXEN0 and RXEN0 bit wali positions pe and then or lenge to vo dono positions pe 1 aa jayega
+	UCSR0B |= (1 << TXEN0) | (1 << RXEN0);  /* isase 1 aa jayega TXEN0 and RXEN0 bit wali positions pe and then or lenge to vo dono positions pe 1 aa jayega
 														overriding normal receiver-transmitter function */
 	
 	// setting frame format
@@ -33,15 +33,21 @@ void USART_trans(unsigned char data){
 	UDR0 = data; // UDR represents transmit buffer in which now we will send data
 }
 
+unsigned char USART_rec(void){
+	
+	while (!(UCSR0A & (1<<RXC0)));
+	
+	return UDR0;
+}
+
 int main(void)
 {
 	// initialize USART
 	USART_initial();
-	unsigned char data = 'a';   // transmit data
-	
+		
 	while (1)
 	{
-	USART_trans(data);
+	USART_trans(USART_rec());
 	_delay_ms(1000);
 	}
 }
